@@ -76,17 +76,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 load_dotenv()
-DATABASES_old = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'catalog',
-        'USER': 'super',
-        'PASSWORD': 'super',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }}
-
-load_dotenv()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
