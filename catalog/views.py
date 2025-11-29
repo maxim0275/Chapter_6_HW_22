@@ -24,3 +24,5 @@ def product_detail(request, product_id):
 
 def index(request):
     return render(request, 'catalog/base.html')
+def contacts_new(request):
+    return render(request, 'catalog/contacts_new.html')
