@@ -1,0 +1,18 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Накладки",
+        "description": "Накладки для ракеток"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Основания",
+        "description": "Основания для ракеток"
+    }
+}
+]
