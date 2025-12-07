@@ -1,3 +1,5 @@
+
+
 from django.db import models
 
 
@@ -32,3 +34,5 @@ class Product(models.Model):
         verbose_name_plural = 'продукты'
         ordering = ['name']
         db_table = 'product'
+
+
