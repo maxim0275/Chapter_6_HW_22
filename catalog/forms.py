@@ -26,9 +26,9 @@ class ProductForm(forms.ModelForm):
         description = cleaned_data.get('description')
 
         for word in invalid_words:
-            if word in name:
+            if word.upper() in str(name).upper() :
                 self.add_error('name',word + ' недопустимо')
-            if word in description:
+            if word.upper() in str(description).upper():
                 self.add_error('description',word + ' недопустимо')
 
         return cleaned_data
