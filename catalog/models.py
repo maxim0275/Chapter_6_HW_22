@@ -23,7 +23,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='images/', verbose_name="Изображение", null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     price_sale = models.IntegerField(verbose_name="Цена за покупку")
-    created_at = models.DateField()
+    created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(null=True)
 
     def __str__(self):
