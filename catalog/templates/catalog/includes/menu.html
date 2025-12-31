@@ -10,8 +10,19 @@
           <div class="col-sm-4 offset-md-1 py-4">
             <h4>Главная</h4>
             <ul class="list-unstyled">
-              <li><a href="#" class="text-black">Вход</a></li>
-              <li><a href="#" class="text-black">Регистрация</a></li>
+              {% if user.is_authenticated %}
+              <li>
+                <form method="post" action="{% url 'users_app:logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="text-black" style="background: none; border: none; cursor: pointer; color: blue; text-decoration: underline; padding: 0;">
+                      Выйти
+                    </button>
+                  </form>
+              </li>
+              {% else %}
+              <li><a href="{% url 'users_app:register' %}" class="text-black">Регистрация</a></li>
+              <li><a href="{% url 'users_app:login' %}" class="text-black">Вход</a></li>
+              {% endif %}
               <li><a href="{% url 'catalog:contacts_new' %}" class="text-black">Контакты</a></li>
             </ul>
           </div>
