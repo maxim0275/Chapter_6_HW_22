@@ -1,28 +1,45 @@
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
+
+from catalog.forms import ProductForm
 from catalog.models import Product
 
 
-def home_view(request):
-    return render(request, 'catalog/home.html')
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/product_list_f.html'
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     print(queryset)  # Вывод в консоль для отладки
+    #     return queryset
 
 
-def contacts_view(request):
-    return render(request, 'catalog/contacts.html')
+class ProductDetailView(DetailView):
+    model = Product
 
 
-def products_list(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'catalog/products_list.html', context)
+# def contacts_new(request):
+#     return render(request, 'catalog/contacts_new.html')
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('catalog:products_list_f')
 
 
-def product_detail(request, product_id):
-    product = Product.objects.get(id=product_id)
-    context = {'product': product}
-    return render(request, 'catalog/product_detail.html', context)
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('catalog:products_list_f')
 
 
-def index(request):
-    return render(request, 'catalog/base.html')
-def contacts_new(request):
-    return render(request, 'catalog/contacts_new.html')
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'catalog/product_delete.html'
+    success_url = reverse_lazy('catalog:products_list_f')
+
+
+class ContactTemplateView(TemplateView):
+    template_name = 'catalog/contacts_new.html'

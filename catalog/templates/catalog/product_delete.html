@@ -20,6 +20,15 @@
               </div>
             </div>
           </div>
+          <div class="col">
+            <form method="post">
+              {% csrf_token%}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-danger"> Удалить </button>
+              <a href="{% url 'catalog:products_list_f' %}"> Отменить </a>
+          </form>
+          </div>
+
         </div>
       </div>
     </div>

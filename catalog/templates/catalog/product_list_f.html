@@ -1,0 +1,24 @@
+<!-- mymodel_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список продуктов</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Список продуктов </h1>
+        <a href="{% url 'catalog:product_create' %}" class="btn btn-primary mb-3">Создать новый продукт</a>
+        <ul class="list-group">
+            {% for prod in object_list %}
+                <li class="list-group-item">
+                    <a href="{% url 'catalog:product_detail' prod.pk %}">{{ prod.name }}</a>
+                    <a href="{% url 'catalog:product_update' prod.pk %}" class="btn btn-sm btn-secondary ml-3">Редактировать</a>
+                    <a href="{% url 'catalog:product_delete' prod.pk %}" class="btn btn-sm btn-danger ml-1">Удалить</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
