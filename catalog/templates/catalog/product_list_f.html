@@ -17,6 +17,12 @@
                     <a href="{% url 'catalog:product_detail' prod.pk %}">{{ prod.name }}</a>
                     <a href="{% url 'catalog:product_update' prod.pk %}" class="btn btn-sm btn-secondary ml-3">Редактировать</a>
                     <a href="{% url 'catalog:product_delete' prod.pk %}" class="btn btn-sm btn-danger ml-1">Удалить</a>
+                    {% if perms.catalog.can_unpublish_product %}
+                    <form action="{% url 'catalog:unpublish_product' product_id=prod.pk %}" method="post" style="display: inline; margin: 0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-secondary ml-3">Отменить публикацию</button>
+                    </form>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
