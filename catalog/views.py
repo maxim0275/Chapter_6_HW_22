@@ -47,6 +47,12 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     login_url = reverse_lazy('users_app:login')
     permission_required = 'catalog.change_product'
 
+    def post(self, request, *args, **kwargs):
+        if self.get_object().owner != request.user:
+            return HttpResponseForbidden("У вас нет прав для редактирования этого продукта.")
+        self.get_object().save()
+        return redirect('catalog:products_list_f')
+
 
 class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
@@ -54,6 +60,12 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     success_url = reverse_lazy('catalog:products_list_f')
     login_url = reverse_lazy('users_app:login')
     permission_required = 'catalog.delete_product'
+
+    def post(self, request, *args, **kwargs):
+        if self.get_object().owner != request.user and not request.user.has_perm('catalog.can_unpublish_product'):
+            return HttpResponseForbidden("У вас нет прав для удаления этого продукта.")
+        self.get_object().delete()
+        return redirect('catalog:products_list_f')
 
 
 class ContactTemplateView(TemplateView):
