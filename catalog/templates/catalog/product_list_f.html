@@ -29,6 +29,20 @@
             {% endfor %}
         </ul>
     </div>
+
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Список категорий </h1>
+        <ul class="list-group">
+            {% for category in category_list %}
+                <li class="list-group-item">
+                    <a href="{% url 'catalog:products_list_f1' category.pk %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
     <script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

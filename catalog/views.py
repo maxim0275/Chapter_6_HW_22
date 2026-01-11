@@ -6,16 +6,34 @@ from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm
-from catalog.models import Product
+from catalog.models import Product, Category
+from catalog.services import get_products_from_cache
+from catalog.services import ProductsService
 
 
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/product_list_f.html'
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     print(queryset)  # Вывод в консоль для отладки
-    #     return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category_list"] = Category.objects.all()
+        return context
+
+    def get_queryset(self):
+        return get_products_from_cache()
+        # queryset = super().get_queryset()
+        # print(queryset)  # Вывод в консоль для отладки
+        # return queryset
+
+
+class ProductListViewForCategory(ListView):
+    model = Product
+    template_name = 'catalog/product_list_f1.html'
+
+    def get_queryset(self):
+        category_id = self.kwargs.get('category_id')  # Получение категории из URL параметров
+        return ProductsService.get_products_by_category(category_id)  # Вызов сервисной функции
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
